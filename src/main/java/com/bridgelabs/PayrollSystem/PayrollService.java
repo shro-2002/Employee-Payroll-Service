@@ -1,5 +1,10 @@
 package com.bridgelabs.PayrollSystem;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,19 +17,9 @@ import java.util.Scanner;
  */
 public class PayrollService {
 
-	private List<EmployeePayroll> employeePayrollList;
+	private List<EmployeePayroll> employeePayrollList = new ArrayList<EmployeePayroll>();
 
-	/*
-	 * @Description: Parameterized Constructor to initialize the List
-	 * 
-	 * @Param: employeePayrollList
-	 * 
-	 * @Return: void
-	 * 
-	 */
-	public PayrollService(List<EmployeePayroll> employeePayrollList) {
-		this.employeePayrollList = employeePayrollList;
-	}
+	private static final String FILE_PATH = "employee.txt";
 
 	/*
 	 * @Description: Method to create and add the employee details to the list
@@ -48,6 +43,29 @@ public class PayrollService {
 	}
 
 	/*
+	 * @Description: Method to write the employee details into a file
+	 * 
+	 * @Param: void
+	 * 
+	 * @Return: void
+	 */
+
+	void writeEmployeeintoFile() {
+		StringBuffer empBuffer = new StringBuffer();
+		employeePayrollList.forEach(employee -> {
+			String employeeDataString = employee.toString().concat("\n");
+			empBuffer.append(employeeDataString);
+		});
+
+		System.out.println(empBuffer.toString());
+		try {
+			Files.write(Paths.get(FILE_PATH), empBuffer.toString().getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
 	 * @Description: Method to print the employee details from the list
 	 * 
 	 * @Param: void
@@ -59,6 +77,7 @@ public class PayrollService {
 	public void printEmployeePayroll() {
 		for (EmployeePayroll employeePayroll : employeePayrollList) {
 			System.out.println("Employee Details: " + employeePayroll.toString());
+			System.out.println();
 		}
 
 	}
