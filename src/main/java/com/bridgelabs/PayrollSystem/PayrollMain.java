@@ -9,13 +9,14 @@ public class PayrollMain {
 		PayrollService payrollService = new PayrollService();
 		Scanner sc = new Scanner(System.in);
 
-		System.out.print("Enter the no. of Employees");
+		System.out.print("Enter the no. of Employees: ");
 		int n = sc.nextInt();
 		for (int i = 0; i < n; i++) {
 			payrollService.addEmployeeToPayroll();
 		}
 		payrollService.printEmployeePayroll();
 		payrollService.writeEmployeeintoFile();
+		payrollService.printEmployeeFromFile();
 	}
 
 }

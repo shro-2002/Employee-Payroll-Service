@@ -11,13 +11,13 @@ import java.util.Scanner;
 /*
  * @Description: Payroll Service to Read and Write Employee Payroll to a Console
  * 
- * @Class Variables: employeePayrollList
+ * @Class Variables: PayrollList
  * 
  * @Methods: addEmployeeToPayroll()
  */
 public class PayrollService {
 
-	private List<EmployeePayroll> employeePayrollList = new ArrayList<EmployeePayroll>();
+	private List<EmployeePayroll> PayrollList = new ArrayList<EmployeePayroll>();
 
 	private static final String FILE_PATH = "employee.txt";
 
@@ -39,7 +39,7 @@ public class PayrollService {
 		System.out.println("Enter Employee Salary: ");
 		int salary = sc.nextInt();
 		EmployeePayroll employeePayroll = new EmployeePayroll(name, empID, salary);
-		employeePayrollList.add(employeePayroll);
+		PayrollList.add(employeePayroll);
 	}
 
 	/*
@@ -51,15 +51,39 @@ public class PayrollService {
 	 */
 
 	void writeEmployeeintoFile() {
-		StringBuffer empBuffer = new StringBuffer();
-		employeePayrollList.forEach(employee -> {
-			String employeeDataString = employee.toString().concat("\n");
-			empBuffer.append(employeeDataString);
+		StringBuilder dataBuffer = new StringBuilder();
+
+		PayrollList.forEach(employee -> {
+			String employeeData = employee.toString() + "\n";
+			dataBuffer.append(employeeData);
 		});
 
-		System.out.println(empBuffer.toString());
+		String allEmployeeData = dataBuffer.toString();
+
+		System.out.println("Employee data to be saved:\n" + allEmployeeData);
+
 		try {
-			Files.write(Paths.get(FILE_PATH), empBuffer.toString().getBytes(), StandardOpenOption.CREATE);
+			Files.write(Paths.get(FILE_PATH), allEmployeeData.getBytes(), StandardOpenOption.CREATE);
+			System.out.println("Employee data successfully saved to the file.");
+		} catch (IOException e) {
+			System.err.println("Error occurred while saving employee data to the file:");
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * @Description: Method to count the number of entries in the file and printing
+	 * the lines in file
+	 *
+	 * @Param: void
+	 *
+	 * @Return: void
+	 */
+	void printEmployeeFromFile() {
+		try {
+			List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
+			lines.forEach(System.out::println);
+			System.out.println("Number of entries: " + lines.size());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +99,7 @@ public class PayrollService {
 	 */
 
 	public void printEmployeePayroll() {
-		for (EmployeePayroll employeePayroll : employeePayrollList) {
+		for (EmployeePayroll employeePayroll : PayrollList) {
 			System.out.println("Employee Details: " + employeePayroll.toString());
 			System.out.println();
 		}
