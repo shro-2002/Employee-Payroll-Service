@@ -76,7 +76,7 @@ public class PayrollService {
 	 *
 	 * @Return: void
 	 */
-	void printEmployeeFromFile() {
+	void readEmployeeFromFile() {
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
 			lines.forEach(System.out::println);

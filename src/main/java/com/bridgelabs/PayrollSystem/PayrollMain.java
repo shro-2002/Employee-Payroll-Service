@@ -16,7 +16,8 @@ public class PayrollMain {
 		}
 		payrollService.printEmployeePayroll();
 		payrollService.writeEmployeeintoFile();
-		payrollService.printEmployeeFromFile();
+		payrollService.readEmployeeFromFile();
+
 	}
 
 }
