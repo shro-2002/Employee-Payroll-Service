@@ -7,6 +7,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /*
  * @Description: Payroll Service to Read and Write Employee Payroll to a Console
@@ -51,22 +52,18 @@ public class PayrollService {
 	 */
 
 	void writeEmployeeintoFile() {
-		StringBuilder dataBuffer = new StringBuilder();
-
-		PayrollList.forEach(employee -> {
-			String employeeData = employee.toString() + "\n";
-			dataBuffer.append(employeeData);
-		});
-
-		String allEmployeeData = dataBuffer.toString();
+		String allEmployeeData = PayrollList.stream()
+				.map(EmployeePayroll::toString)
+				.collect(Collectors.joining("\n"));
 
 		System.out.println("Employee data to be saved:\n" + allEmployeeData);
 
 		try {
-			Files.write(Paths.get(FILE_PATH), allEmployeeData.getBytes(), StandardOpenOption.CREATE);
+			Files.write(Paths.get(FILE_PATH), allEmployeeData.getBytes(), StandardOpenOption.CREATE,
+					StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
 			System.out.println("Employee data successfully saved to the file.");
 		} catch (IOException e) {
-			System.err.println("Error occurred while saving employee data to the file:");
+			System.out.println("Error occurred while saving employee data to the file:");
 			e.printStackTrace();
 		}
 	}

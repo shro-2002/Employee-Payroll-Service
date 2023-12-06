@@ -1,21 +1,8 @@
 
-Name: Gray Hawthorne
-Employee ID: 7265
-Salary: 456789
+Name: Gray HawThorne
+Employee ID: 87654
+Salary: 1234567
 
-Name: Thea Hawthorne
-Employee ID: 8826
-Salary: 3452672
-
-Name: Rebecca Laughlin
-Employee ID: 2726
-Salary: 256783
-54321
-
-Name: Alex Hawthorne
-Employee ID: 776
-Salary: 123456
-
-Name: Avery Grambs
-Employee ID: 8764
-Salary: 776
+Name: JameSon Hawthorne
+Employee ID: 45262
+Salary: 234562
